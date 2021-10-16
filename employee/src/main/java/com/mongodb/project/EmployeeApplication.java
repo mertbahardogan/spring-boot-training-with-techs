@@ -25,7 +25,7 @@ public class EmployeeApplication {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.mongodb.project"))
                 .paths(PathSelectors.any())
                 .build();
     }

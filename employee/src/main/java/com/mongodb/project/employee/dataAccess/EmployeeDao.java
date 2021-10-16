@@ -2,12 +2,17 @@ package com.mongodb.project.employee.dataAccess;
 
 import com.mongodb.project.common.entities.Employee;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface EmployeeDao extends MongoRepository<Employee,String> {
+public interface EmployeeDao extends MongoRepository<Employee, String> {
 
-    List<Employee> findAll();
+    Optional<Employee> findById(String id);
+
+    @Query("{isManager:?true}")
+    List<Employee> findAllByIsManager();
 }

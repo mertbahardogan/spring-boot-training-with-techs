@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+
 @Data
 @Document(collection = "employees")
 public class Employee {
@@ -14,4 +16,5 @@ public class Employee {
     private int salary;
     private int age;
     private boolean isManager;
+    private LocalDate created;
 }
