@@ -12,6 +12,18 @@
 		<version>2.5.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<developers>
+		<developer>
+			<id>mrtbhrdgn</id>
+			<name>Mert BAHARDOGAN</name>
+			<email>mbahardogan4@gmail.com</email>
+			<roles>
+				<role>
+					Computer Engineer
+				</role>
+			</roles>
+		</developer>
+	</developers>
 	<groupId>com.mongodb.project</groupId>
 	<artifactId>mongodb-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -20,16 +32,14 @@
 	<packaging>pom</packaging>
 
 	<properties>
-
 		<java.version>11</java.version>
-
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-
 		<spring-boot.version>2.5.5</spring-boot.version>
-
 		<spring-boot-starter-data-mongodb.version>2.5.5</spring-boot-starter-data-mongodb.version>
 		<spring-data-mongodb.version>3.2.5</spring-data-mongodb.version>
 		<lombok.version>1.18.20</lombok.version>
+		<springfox.version>3.0.0</springfox.version>
+		<modelmapper.version>2.4.4</modelmapper.version>
 	</properties>
 
 	<dependencyManagement>
@@ -39,14 +49,12 @@
 				<artifactId>spring-boot-starter</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring-boot.version}</version>
 				<scope>test</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -68,29 +76,26 @@
 				<artifactId>common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger2</artifactId>
-				<version>3.0.0</version>
+				<version>${springfox.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-boot-starter</artifactId>
-				<version>3.0.0</version>
+				<version>${springfox.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger-ui</artifactId>
-				<version>2.9.2</version>
+				<version>${springfox.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.modelmapper</groupId>
 				<artifactId>modelmapper</artifactId>
-				<version>2.4.4</version>
+				<version>${modelmapper.version}</version>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 
