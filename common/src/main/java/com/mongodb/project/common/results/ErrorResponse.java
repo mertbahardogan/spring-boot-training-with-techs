@@ -1,21 +1,19 @@
 package com.mongodb.project.common.results;
 
-import java.io.Serializable;
+import java.util.List;
 
-public class ErrorResponse<T> extends ServiceResponse implements Serializable {
+public class ErrorResponse {
+    private List<String> errors;
 
-    private T data;
-
-    public ErrorResponse() {
-        super(StatusType.ERROR);
+    public ErrorResponse(List<String> errors) {
+        this.errors = errors;
     }
 
-    public T getData() {
-        return data;
+    public List<String> getErrors() {
+        return errors;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
     }
-
 }

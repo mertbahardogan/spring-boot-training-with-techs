@@ -36,12 +36,23 @@ public class EmployeeManager implements EmployeeService {
     }
 
     @Override
-    public Optional<EmployeeDTO> findById(String id) {
-        Optional<Employee> employee = this.employeeDao.findById(id);
+    public EmployeeDTO findById(String id) {
+        Employee employee = this.employeeDao.findById(id).isEmpty() ? null : this.employeeDao.findById(id).get();
+        if (employee == null) {
+            return null;
+        }
+        Type type = new TypeToken<EmployeeDTO>() {}.getType();
+        EmployeeDTO employeeDTO = modelMapper.map(employee, type);
+        return employeeDTO;
+    }
+
+    @Override
+    public Optional<EmployeeDTO> findByName(String name) {
+        Optional<Employee> employee = this.employeeDao.findByName(name);
         Type listType = new TypeToken<Optional<EmployeeDTO>>() {
         }.getType();
-        Optional<EmployeeDTO> employeeDTOList = modelMapper.map(employee, listType);
-        return employeeDTOList;
+        Optional<EmployeeDTO> employeeDTOOptional = modelMapper.map(employee, listType);
+        return employeeDTOOptional;
     }
 
     @Override

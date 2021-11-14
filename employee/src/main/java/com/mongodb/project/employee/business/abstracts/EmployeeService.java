@@ -6,13 +6,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-//TODO: default metodu kullan.
+//TODO: default metodu kullan. java8
 @Service
 public interface EmployeeService {
 
     List<EmployeeDTO> findAll();
 
-    Optional<EmployeeDTO> findById(String id);
+    EmployeeDTO findById(String id);
+
+    Optional<EmployeeDTO> findByName(String id);
 
     EmployeeDTO create(EmployeeDTO employeeDTO);
 
