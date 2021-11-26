@@ -1,7 +1,5 @@
 package com.mongodb.project.common.exceptions;
 
-import com.mongodb.project.common.dtos.EmployeeDTO;
-
 public class EmployeeNotCreatedException extends Exception{
 
     private final String name;
