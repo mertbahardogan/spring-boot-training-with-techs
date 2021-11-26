@@ -15,7 +15,7 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({EmployeeNotFoundException.class, EmployeeNotCreatedException.class})
+    @ExceptionHandler({EmployeeNotFoundException.class, EmployeeNotCreatedException.class, MethodRequestNotValidException.class})
     public final ResponseEntity<ErrorResponse> handleException(Exception ex, WebRequest request) {
 
         HttpHeaders headers = new HttpHeaders();
@@ -28,6 +28,10 @@ public class GlobalExceptionHandler {
             HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
             EmployeeNotCreatedException employeeNotCreatedException = (EmployeeNotCreatedException) ex;
             return handleEmployeeNotCreatedException(employeeNotCreatedException, headers, status, request);
+        } else if (ex instanceof MethodRequestNotValidException) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            MethodRequestNotValidException methodArgumentNotValidException = (MethodRequestNotValidException) ex;
+            return handleMethodArgumentNotValidException(methodArgumentNotValidException, headers, status, request);
         } else {
             HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             return handleExceptionInternal(ex, null, headers, status, request);
@@ -44,11 +48,15 @@ public class GlobalExceptionHandler {
         return handleExceptionInternal(ex, new ErrorResponse(errors), headers, status, request);
     }
 
+    protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodRequestNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errors = ex.getMessageList();
+        return handleExceptionInternal(ex, new ErrorResponse(errors), headers, status, request);
+    }
+
     protected ResponseEntity<ErrorResponse> handleExceptionInternal(Exception ex, ErrorResponse body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
         }
         return new ResponseEntity<>(body, headers, status);
     }
-
 }
