@@ -1,5 +1,6 @@
 package com.mongodb.project.employee.api;
 
+import com.mongodb.project.common.aspects.Restrict;
 import com.mongodb.project.common.dtos.EmployeeDTO;
 import com.mongodb.project.common.exceptions.EmployeeNotCreatedException;
 import com.mongodb.project.common.exceptions.EmployeeNotFoundException;
@@ -21,11 +22,12 @@ public class EmployeesController {
 
     private final EmployeeService employeeService;
 
-    @ConstructorBinding
+//    @ConstructorBinding
     public EmployeesController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
+    @Restrict
     @GetMapping()
     public ResponseEntity findAll() {
         return new ResponseEntity<>(this.employeeService.findAll(), HttpStatus.OK);

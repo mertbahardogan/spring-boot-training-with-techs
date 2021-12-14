@@ -1,4 +1,4 @@
-package com.mongodb.project.common.configurations;
+package com.mongodb.project.common.configs;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

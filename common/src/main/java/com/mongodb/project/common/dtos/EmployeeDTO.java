@@ -1,12 +1,10 @@
 package com.mongodb.project.common.dtos;
 
 import lombok.Data;
-
 import javax.validation.constraints.*;
 
 @Data
 public class EmployeeDTO {
-    //TODO: move strings to another constant file.
 
     @NotBlank(message = "Required")
     @Size(min = 2, max = 10, message = "Name field '${validatedValue}' must be between {min} and {max} characters long")
@@ -14,6 +12,7 @@ public class EmployeeDTO {
 
     @NotBlank(message = "Required")
     private String lastName;
+
 
     @Min(value = 1, message = "'${validatedValue}' must be upper than {value}")
     private int salary;

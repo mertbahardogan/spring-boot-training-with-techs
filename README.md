@@ -8,14 +8,15 @@
 -New Swagger UI,
 -Validation,
 -Dockerfile&Build Dockerize
+-AOP(Logging)
 
 #### Coming Soon:
 
--Custom validation
--Validation constants as generic
-
+-UUID
+-Serial-Deserial
 -New Service using SQL and NoSQL in same project
 -Docker Compose(PostgreSQL and service container)
 -JWT
+-AOP(Catching..)
 
 -Keycloak(Other Projects)
