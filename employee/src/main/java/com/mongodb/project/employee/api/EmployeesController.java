@@ -6,6 +6,7 @@ import com.mongodb.project.common.exceptions.EmployeeNotCreatedException;
 import com.mongodb.project.common.exceptions.EmployeeNotFoundException;
 import com.mongodb.project.common.exceptions.MethodRequestNotValidException;
 import com.mongodb.project.employee.business.abstracts.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class EmployeesController {
 
     private final EmployeeService employeeService;
 
-//    @ConstructorBinding
+    @Autowired
     public EmployeesController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
@@ -55,7 +56,7 @@ public class EmployeesController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity update(@Valid @RequestBody EmployeeDTO employeeDTO, @PathVariable(value = "id") String id,BindingResult bindingResult) throws Exception {
+    public ResponseEntity update(@Valid @RequestBody EmployeeDTO employeeDTO, @PathVariable(value = "id") String id, BindingResult bindingResult) throws Exception {
         Optional<EmployeeDTO> employee = this.employeeService.findByName(employeeDTO.getName());
         if (employee.isEmpty()) {
             throw EmployeeNotFoundException.createWith(employeeDTO.getName());

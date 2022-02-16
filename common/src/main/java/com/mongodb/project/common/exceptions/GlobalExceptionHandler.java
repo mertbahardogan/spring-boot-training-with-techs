@@ -15,7 +15,7 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({EmployeeNotFoundException.class, EmployeeNotCreatedException.class, MethodRequestNotValidException.class})
+    @ExceptionHandler({EmployeeNotFoundException.class, EmployeeNotCreatedException.class, MethodRequestNotValidException.class, UsernameNotFoundException.class})
     public final ResponseEntity<ErrorResponse> handleException(Exception ex, WebRequest request) {
 
         HttpHeaders headers = new HttpHeaders();
@@ -32,6 +32,10 @@ public class GlobalExceptionHandler {
             HttpStatus status = HttpStatus.BAD_REQUEST;
             MethodRequestNotValidException methodArgumentNotValidException = (MethodRequestNotValidException) ex;
             return handleMethodArgumentNotValidException(methodArgumentNotValidException, headers, status, request);
+        } else if (ex instanceof UsernameNotFoundException) {
+            HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
+            UsernameNotFoundException usernameNotFoundException = (UsernameNotFoundException) ex;
+            return handleUsernameNotFoundException(usernameNotFoundException, headers, status, request);
         } else {
             HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             return handleExceptionInternal(ex, null, headers, status, request);
@@ -44,6 +48,11 @@ public class GlobalExceptionHandler {
     }
 
     protected ResponseEntity<ErrorResponse> handleEmployeeNotCreatedException(EmployeeNotCreatedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return handleExceptionInternal(ex, new ErrorResponse(errors), headers, status, request);
+    }
+
+    protected ResponseEntity<ErrorResponse> handleUsernameNotFoundException(UsernameNotFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = Collections.singletonList(ex.getMessage());
         return handleExceptionInternal(ex, new ErrorResponse(errors), headers, status, request);
     }
