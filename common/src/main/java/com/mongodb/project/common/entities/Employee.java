@@ -13,6 +13,7 @@ public class Employee {
     private String id;
     private String name;
     private String lastName;
+    private String password;
     private int salary;
     private int age;
     private boolean isManager;

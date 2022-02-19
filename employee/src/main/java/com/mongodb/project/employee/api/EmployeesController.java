@@ -1,5 +1,6 @@
 package com.mongodb.project.employee.api;
 
+import com.mongodb.project.common.aspects.Log;
 import com.mongodb.project.common.aspects.Restrict;
 import com.mongodb.project.common.dtos.EmployeeDTO;
 import com.mongodb.project.common.exceptions.EmployeeNotCreatedException;
@@ -28,12 +29,14 @@ public class EmployeesController {
         this.employeeService = employeeService;
     }
 
+    @Log
     @Restrict
     @GetMapping()
     public ResponseEntity findAll() {
         return new ResponseEntity<>(this.employeeService.findAll(), HttpStatus.OK);
     }
 
+    @Log
     @GetMapping(value = "/{id}")
     public ResponseEntity findById(@PathVariable(value = "id") String id) throws EmployeeNotFoundException {
         EmployeeDTO employee = this.employeeService.findById(id);
@@ -43,6 +46,7 @@ public class EmployeesController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
+    @Log
     @PostMapping()
     public ResponseEntity create(@Valid @RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) throws Exception {
         Optional<EmployeeDTO> employee = this.employeeService.findByName(employeeDTO.getName());

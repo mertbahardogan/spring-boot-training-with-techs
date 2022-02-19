@@ -20,14 +20,14 @@ import com.mongodb.project.model.JwtResponse;
 
 @RestController
 @CrossOrigin
-class JwtAuthenticationController {
+class JwtAuthenticationsController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final JwtUserDetailsService userDetailsService;
 
     @Autowired
-    JwtAuthenticationController(AuthenticationManager authenticationManager,JwtTokenUtil jwtTokenUtil,JwtUserDetailsService userDetailsService){
+    JwtAuthenticationsController(AuthenticationManager authenticationManager,JwtTokenUtil jwtTokenUtil,JwtUserDetailsService userDetailsService){
         this.authenticationManager=authenticationManager;
         this.jwtTokenUtil=jwtTokenUtil;
         this.userDetailsService=userDetailsService;
