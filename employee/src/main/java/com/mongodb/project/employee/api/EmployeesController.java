@@ -7,6 +7,9 @@ import com.mongodb.project.common.exceptions.EmployeeNotCreatedException;
 import com.mongodb.project.common.exceptions.EmployeeNotFoundException;
 import com.mongodb.project.common.exceptions.MethodRequestNotValidException;
 import com.mongodb.project.employee.business.abstracts.EmployeeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.http.HttpStatus;
@@ -14,15 +17,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/employees")
+@Api(value = "Employees API Documentation")
 public class EmployeesController {
 
     private final EmployeeService employeeService;
+
+    @PostConstruct
+    public void init() {
+        employeeService.create(new EmployeeDTO( "name", "surname",1,1,true));
+    }
 
     @Autowired
     public EmployeesController(EmployeeService employeeService) {
@@ -32,6 +42,7 @@ public class EmployeesController {
     @Log
     @Restrict
     @GetMapping()
+    @ApiOperation(value="All employees return.")
     public ResponseEntity findAll() {
         return new ResponseEntity<>(this.employeeService.findAll(), HttpStatus.OK);
     }
@@ -48,7 +59,7 @@ public class EmployeesController {
 
     @Log
     @PostMapping()
-    public ResponseEntity create(@Valid @RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) throws Exception {
+    public ResponseEntity create(@Valid @RequestBody @ApiParam("Create employeeDTO parameters needs.") EmployeeDTO employeeDTO, BindingResult bindingResult) throws Exception {
         Optional<EmployeeDTO> employee = this.employeeService.findByName(employeeDTO.getName());
         if (bindingResult.hasErrors()) {
             throw MethodRequestNotValidException.createWith(bindingResult.getFieldErrors());

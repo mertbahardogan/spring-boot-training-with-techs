@@ -25,6 +25,7 @@ public class EmployeeApplication {
         SpringApplication.run(EmployeeApplication.class, args);
     }
 
+    //Belong Swagger Below Three Methods
     private SecurityContext securityContext() {
         return SecurityContext.builder().securityReferences(defaultAuth()).build();
     }
@@ -40,11 +41,12 @@ public class EmployeeApplication {
         return new ApiKey("JWT", "Authorization", "header");
     }
 
+    //Belong Swagger Below Two Methods
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Spring Boot Simple REST API",
+                "Spring Boot Training with Newest Techs",
                 "Spring Boot Simple REST API Swagger Documentation",
-                "Version 1",
+                "Version 1.0.0",
                 "urn:tos",
                 new Contact("Admin", "www.mertbahardogan.com", "info@mertbahardogan.com"),
                 "Apache 2.0",
