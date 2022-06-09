@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Data
 @Document(collection = "employees")
 public class Employee {
+
     @Id
     private String id;
     private String name;
